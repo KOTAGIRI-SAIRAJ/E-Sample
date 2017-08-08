@@ -4,75 +4,141 @@
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
-    <link rel="stylesheet" href="styles/css/main.css"></link>
-    <!--<link rel="stylesheet" href="./node_modules/bootstrap-vue/dist/bootstrap-vue.css">
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">-->
-    <!--<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>-->
+
   </head>
   <body>
   <div id="app">
-    <sample></sample>
+    <home></home>
   </div>
-  <script id="sample-template" type="text/x-template">
+  <script id="home-template" type="text/x-template">
+    <div class="container">
+      <b-alert show>
+        <h1>BLOOD DONAR</h1>
+      </b-alert>
+      <headertemplate></headertemplate>
+    </div>
+  </script>
+  <script id="header-template" type="text/x-template">
     <div>
-      <b-jumbotron header="BLOOD DONAR"></b-jumbotron>
-        <!--<b-button variant="success">Success</b-button>-->
-      <register></register>
+      <b-navbar toggleable type="inverse" variant="primary">
+        <b-nav-toggle target="nav_collapse"></b-nav-toggle>
+        <b-collapse is-nav id="nav_collapse">
+          <b-nav is-nav-bar>
+            <b-nav-item><router-link to="search" class="nav-link" activeClass="active" exact>Search</router-link></b-nav-item>
+            <b-nav-item><router-link to="register" class="nav-link" activeClass="active" exact>Register</router-link></b-nav-item>
+            <b-nav-item><router-link to="post" class="nav-link" activeClass="active" exact>Post a comment</router-link></b-nav-item>
+          </b-nav>
+        </b-collapse>
+      </b-navbar>
+      <br />
+      <div>
+        <router-view></router-view>
+      </div>
+    </div>
+  </script>
+  <script id="search-template" type="text/x-template">
+    <div>
+      <p>Search</p>
     </div>
   </script>
   <script id="register-template" type="text/x-template">
-    <b-navbar toggleable type="inverse" variant="success">
-
-      <b-nav-toggle target="nav_collapse"></b-nav-toggle>
-
-      <!--<b-link class="navbar-brand" to="#">
-        <span>BootstrapVue</span>
-      </b-link>-->
-
-      <b-collapse is-nav id="nav_collapse">
-
-        <b-nav is-nav-bar>
-          <b-nav-item>Support</b-nav-item>
-          <b-nav-item>Docs</b-nav-item>
-          <b-nav-item>Contact Us</b-nav-item>
-        </b-nav>
-
-        <!--<b-nav is-nav-bar class="ml-auto">
-
-          &lt;!&ndash; Navbar dropdowns &ndash;&gt;
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item to="#">EN</b-dropdown-item>
-            <b-dropdown-item to="#">ES</b-dropdown-item>
-            <b-dropdown-item to="#">RU</b-dropdown-item>
-            <b-dropdown-item to="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown right>
-
-            &lt;!&ndash; Using button-content slot &ndash;&gt;
-            <template slot="button-content">
-              <span style="font-weight: bold;">User</span>
-            </template>
-
-            <b-dropdown-item to="#">Profile</b-dropdown-item>
-            <b-dropdown-item to="#">Signout</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-        </b-nav>-->
-      </b-collapse>
-    </b-navbar>
+    <div class="registration">
+      <div class="container">
+        <hr />
+        <div class="row card">
+          <div class="col-md-12 card-block">
+            <h1 class="card-title"> Donar Registration page</h1>
+            <hr />
+            <form id="myForm" @submit.prevent="donarRegistration()">
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label ">First Name</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control " placeholder="First Name" v-model="registered_donar_data.firstName">
+                    </div>
+                    <label class="col-sm-2 col-form-label ">Last Name</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control " placeholder="Last Name" v-model="registered_donar_data.lastName">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label ">Occupation</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control " placeholder="Occupation" v-model="registered_donar_data.occupation">
+                    </div>
+                    <label class="col-sm-2 col-form-label ">DOB</label>
+                    <div class="col-sm-4">
+                      <input type="date" class="form-control " placeholder="DOB" v-model="registered_donar_data.dob">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label ">Blood Group</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control " placeholder="Blood Group" v-model="registered_donar_data.blood_group">
+                    </div>
+                    <label class="col-sm-2 col-form-label ">City</label>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control " placeholder="City" v-model="registered_donar_data.city">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <br>
+              <h2 class="card-title"> Personal Contact Details</h2>
+              <hr />
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label ">Email</label>
+                    <div class="col-sm-6">
+                      <input type="email" class="form-control " placeholder="Email-Id" v-model="registered_donar_data.p_emial">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label ">Contact</label>
+                    <div class="col-sm-6">
+                      <input type="number" class="form-control " placeholder="Phone Number" v-model="registered_donar_data.p_phone">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br><br>
+              <h2 class="card-title"> Emergency Contact Details</h2>
+              <hr />
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label ">Email</label>
+                    <div class="col-sm-6">
+                      <input type="email" class="form-control " placeholder="Email-Id" v-model="registered_donar_data.e_email">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label ">Contact</label>
+                    <div class="col-sm-6">
+                      <input type="number" class="form-control " placeholder="Phone Number" v-model="registered_donar_data.e_phone">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div>
+                <button type="submit" class="btn btn-success btn-lg" >Register</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </script>
-  <!-- built files will be auto injected -->
+  <script id="post-template" type="text/x-template">
+    <div>
+      <p>post</p>
+    </div>
+  </script>
+  <script src="src/actions.js"></script>
   </body>
-  <script src="./src/js/vendor/vue.js"></script>
-  <script src="./src/js/vendor/vue-router.js"></script>
-  <script src="./src/component.js"></script>
-  <!--<script src="./node_modules/bootstrap-vue/dist/bootstrap-vue.js"></script>
-  <script src="./node_modules/tether/dist/js/tether.min.js"></script>-->
-
-  <!--<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
-  <script src="//unpkg.com/tether@latest/dist/js/tether.min.js"></script>
-  <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>-->
   </html>
 </apex:page>
