@@ -8,6 +8,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
 import actions from './actions'
 import moment from 'moment'
+
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 window.bb = {}
@@ -72,13 +73,17 @@ window.bb.routes = [
 Vue.component('home', {
   template: '#home-template',
   data () {
-    return { }
+    return {
+      bb: window.bb
+    }
   }
 })
 Vue.component('headertemplate', {
   template: '#header-template',
   data () {
-    return { }
+    return {
+      bb: window.bb
+    }
   }
 })
 let router = new VueRouter({
@@ -97,6 +102,8 @@ new Vue({
     // vm.$router.replace({path: window.bb.basePath + '/home'})
   },
   data () {
-    return { }
+    return {
+      bb: window.bb
+    }
   }
 }).$mount('#app')

@@ -1,7 +1,8 @@
 /**
  * Created by semanticbits on 8/8/17.
  */
-import common from './common/common'
+import common from './common'
+import './data'
 
 let actions = {
   responseInterceptor: function (result, event, cb) {
@@ -20,3 +21,4 @@ let actions = {
   }
 }
 export default actions
+
