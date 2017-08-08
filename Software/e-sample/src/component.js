@@ -49,6 +49,9 @@ window.bb.routes = [
       },
       created () {
         console.log('Hi From Created')
+        const d = JSON.parse(localStorage.getItem('donors_data'))
+        console.log(d)
+        console.log('Hi From Created')
       },
       methods: {
         donarRegistration: function () {
@@ -95,7 +98,7 @@ new Vue({
   mounted () {
     console.log('mounted')
     console.log(window)
-    actions.populateDonors(function () {
+    actions.getDonarData(function () {
       console.log('populate Donors')
     })
     console.log('mounted')

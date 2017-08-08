@@ -2,7 +2,7 @@
  * Created by semanticbits on 8/8/17.
  */
 window.remoteController = {
-  getDonors: function (cb) {
+  donar_data: function (cb) {
     cb([
       { 'Id': '2017-08-03T16:49:45+05:30', 'firstName': 'user1', 'lastName': 'user1', 'occupation': 'Employee1', 'martial_status': 'Unmarried', 'dob': '02-03-1994', 'p_email': 'user1@gmail.com', 'p_phone': '8142428301', 'e_email': 'user1@gmail.com', 'e_phone': '8142428301', 'bloodGroup': 'A+', 'city': 'Hyderabad', 'recent_donar': 'NO', 'current_date': undefined, 'end_date': undefined },
       { 'Id': '2017-08-03T16:49:46+05:30', 'firstName': 'user2', 'lastName': 'user2', 'occupation': 'Employee2', 'martial_status': 'Unmarried', 'dob': '02-03-1994', 'p_email': 'user2@gmail.com', 'p_phone': '8142428302', 'e_email': 'user2@gmail.com', 'e_phone': '8142428302', 'bloodGroup': 'AB+', 'city': 'Hyderabad', 'recent_donar': 'NO', 'current_date': undefined, 'end_date': undefined },

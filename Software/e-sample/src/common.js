@@ -7,6 +7,7 @@ let common = {
     console.log(data)
     console.log(path)
     console.log(value)
+    localStorage.setItem(path, JSON.stringify(value))
     console.log('set value to store')
   }
 }

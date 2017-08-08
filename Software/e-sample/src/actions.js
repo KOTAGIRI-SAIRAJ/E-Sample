@@ -8,13 +8,11 @@ let actions = {
   responseInterceptor: function (result, event, cb) {
     cb()
   },
-  populateDonors: function (afterPopulate) {
-    window.remoteController.getDonors(function (result, event, cb) {
-      console.log('populate User infor')
+  getDonarData: function (afterPopulate) {
+    window.remoteController.donar_data(function (result, event, cb) {
       console.log(result)
-      console.log('populate User infor')
       actions.responseInterceptor(result, event, function () {
-        common.setValueToStore(window.bb, 'donors', result)
+        common.setValueToStore(window.bb, 'donors_data', result)
         afterPopulate()
       })
     })
