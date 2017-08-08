@@ -8,7 +8,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueRouter from 'vue-router'
 import actions from './actions'
 import moment from 'moment'
-
+import common from './common'
+import VueBootstrapTable from 'vue2-bootstrap-table2'
+let tabledonarData = []
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 window.bb = {}
@@ -17,8 +19,102 @@ window.bb.routes = [
     path: '/search',
     component: {
       template: '#search-template',
+      components: {
+        VueBootstrapTable: VueBootstrapTable
+      },
+      beforeCreate () {
+        let donardata = common.getTheDonarData()
+        tabledonarData = []
+        donardata.forEach((eachRecord) => {
+          let eachRecordObj = {
+            'Id': moment(eachRecord.Id, 'YYYY-MM-DD').format('YYYY-MM-DD'),
+            'bloodGroup': eachRecord.blood_group,
+            'city': eachRecord.city,
+            'current_date': eachRecord.current_date,
+            'dob': eachRecord.dob,
+            'e_email': eachRecord.e_email,
+            'e_phone': eachRecord.e_phone,
+            'end_date': eachRecord.end_date,
+            'firstName': eachRecord.firstName,
+            'lastName': eachRecord.lastName,
+            'occupation': eachRecord.occupation,
+            'p_email': eachRecord.p_email,
+            'p_phone': eachRecord.p_phone,
+            'recent_donar': false
+          }
+          tabledonarData.push(eachRecordObj)
+        })
+        console.log(tabledonarData)
+      },
       data () {
-        return { }
+        return {
+          columns: [
+            {
+              title: 'Id'
+            },
+            {
+              title: 'firstName',
+              path: 'firstName',
+              visible: true,
+              editable: true
+            },
+            {
+              title: 'lastName',
+              path: 'lastName',
+              visible: true,
+              editable: true
+            },
+            {
+              title: 'occupation',
+              path: 'occupation',
+              visible: true,
+              editable: true
+            },
+            {
+              title: 'dob',
+              path: 'dob',
+              visible: true,
+              editable: true
+            },
+            {
+              title: 'bloodGroup',
+              path: 'bloodGroup',
+              visible: true,
+              editable: true
+            },
+            {
+              title: 'city',
+              path: 'city',
+              visible: true,
+              editable: true
+            },
+            {
+              title: 'p_email',
+              path: 'p_email',
+              visible: true,
+              editable: true
+            },
+            {
+              title: 'p_phone',
+              path: 'p_phone',
+              visible: true,
+              editable: true
+            },
+            {
+              title: 'e_email',
+              path: 'e_email',
+              visible: true,
+              editable: true
+            },
+            {
+              title: 'e_phone',
+              path: 'e_phone',
+              visible: true,
+              editable: true
+            }
+          ],
+          values: tabledonarData
+        }
       }
     }
   },
@@ -36,29 +132,25 @@ window.bb.routes = [
             dob: '',
             blood_group: '',
             city: '',
-            p_emial: '',
+            p_email: '',
             p_phone: '',
             e_email: '',
             e_phone: '',
             recent_donar: '',
             current_date: '',
             end_date: ''
-          },
-          totalData: []
+          }
         }
       },
       created () {
         console.log('Hi From Created')
-        const d = JSON.parse(localStorage.getItem('donors_data'))
-        console.log(d)
-        console.log('Hi From Created')
       },
       methods: {
         donarRegistration: function () {
-          console.log('from DonarRegistration Data')
           this.registered_donar_data.Id = moment().format()
-          this.totalData.push(this.registered_donar_data)
-          console.log('form Regisration')
+          const d = common.getTheDonarData()
+          d.push(this.registered_donar_data)
+          common.setNewRegisteredData('donors_data', d)
         }
       }
     }

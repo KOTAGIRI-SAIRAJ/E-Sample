@@ -37,8 +37,20 @@
     </div>
   </script>
   <script id="search-template" type="text/x-template">
-    <div>
-      <p>Search</p>
+    <div class="datatable">
+      <h1>Data Table</h1>
+      <div class="container">
+        <vue-bootstrap-table
+          :columns="columns"
+          :values="values"
+          :show-filter="true"
+          :sortable="true"
+          :paginated="true"
+          :multi-column-sortable=true
+          :filter-case-sensitive=false
+        >
+        </vue-bootstrap-table>
+      </div>
     </div>
   </script>
   <script id="register-template" type="text/x-template">
@@ -75,7 +87,7 @@
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label ">Blood Group</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control " placeholder="Blood Group" v-model="registered_donar_data.blood_group">
+                      <input type="text" class="form-control " placeholder="Blood Group" v-model="registered_donar_data.bloodGroup">
                     </div>
                     <label class="col-sm-2 col-form-label ">City</label>
                     <div class="col-sm-4">

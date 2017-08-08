@@ -9,6 +9,13 @@ let common = {
     console.log(value)
     localStorage.setItem(path, JSON.stringify(value))
     console.log('set value to store')
+  },
+  setNewRegisteredData: function (path, value) {
+    localStorage.setItem(path, JSON.stringify(value))
+  },
+  getTheDonarData: function () {
+    let donardata = JSON.parse(localStorage.getItem('donors_data'))
+    return donardata
   }
 }
 export default common
