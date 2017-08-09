@@ -4,7 +4,6 @@
     <meta charset="UTF-8"></meta>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
-
   </head>
   <body>
   <div id="app">
@@ -38,7 +37,33 @@
   </script>
   <script id="search-template" type="text/x-template">
     <div class="datatable">
-      <h1>Data Table</h1>
+      <b-card header="Card header text"
+              class="mb-2"
+              title="Search"
+              sub-title="Card subtitle"
+      >
+      </b-card>
+      <table>
+        <tr>
+          <td width="3%">Blood Group</td>
+          <td width="1%"></td>
+          <td width="43%">
+            <v-select
+              :options="bloodGroupdata"
+              placeholder="Select a BloodGroup..."
+            ></v-select>
+          </td>
+          <td width="5%"></td>
+          <td width="3%">City</td>
+          <td width="1%"></td>
+          <td width="43%">
+            <v-select
+              :options="options"
+              placeholder="Search for a City..."
+            ></v-select>
+          </td>
+        </tr>
+      </table>
       <div class="container">
         <vue-bootstrap-table
           :columns="columns"
@@ -87,7 +112,7 @@
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label ">Blood Group</label>
                     <div class="col-sm-4">
-                      <input type="text" class="form-control " placeholder="Blood Group" v-model="registered_donar_data.bloodGroup">
+                      <input type="text" class="form-control " placeholder="Blood Group" v-model="registered_donar_data.blood_group">
                     </div>
                     <label class="col-sm-2 col-form-label ">City</label>
                     <div class="col-sm-4">
@@ -105,7 +130,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label ">Email</label>
                     <div class="col-sm-6">
-                      <input type="email" class="form-control " placeholder="Email-Id" v-model="registered_donar_data.p_emial">
+                      <input type="email" class="form-control " placeholder="Email-Id" v-model="registered_donar_data.p_email">
                     </div>
                   </div>
                   <div class="form-group row">

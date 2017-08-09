@@ -10,7 +10,11 @@ import actions from './actions'
 import moment from 'moment'
 import common from './common'
 import VueBootstrapTable from 'vue2-bootstrap-table2'
+import vSelect from 'vue-select'
+
 let tabledonarData = []
+let citiesForAutoCompleter = []
+let bloodgroupForDropDown = []
 Vue.use(BootstrapVue)
 Vue.use(VueRouter)
 window.bb = {}
@@ -20,12 +24,15 @@ window.bb.routes = [
     component: {
       template: '#search-template',
       components: {
-        VueBootstrapTable: VueBootstrapTable
+        VueBootstrapTable: VueBootstrapTable,
+        vSelect: vSelect
       },
       beforeCreate () {
         let donardata = common.getTheDonarData()
         tabledonarData = []
+        citiesForAutoCompleter = []
         donardata.forEach((eachRecord) => {
+          let flag = 0
           let eachRecordObj = {
             'Id': moment(eachRecord.Id, 'YYYY-MM-DD').format('YYYY-MM-DD'),
             'bloodGroup': eachRecord.blood_group,
@@ -42,9 +49,37 @@ window.bb.routes = [
             'p_phone': eachRecord.p_phone,
             'recent_donar': false
           }
+          let eachCityObject = eachRecord.city
+          let eachBloodGroupObject = eachRecord.blood_group
           tabledonarData.push(eachRecordObj)
+          if (citiesForAutoCompleter.length === 0) {
+            citiesForAutoCompleter.push(eachCityObject)
+            flag = 1
+          } else {
+            citiesForAutoCompleter.forEach((eachCity) => {
+              if (eachCity === eachRecord.city) {
+                flag = 1
+              }
+            })
+          }
+          if (flag === 0) {
+            citiesForAutoCompleter.push(eachCityObject)
+          }
+          flag = 0
+          if (bloodgroupForDropDown.length === 0) {
+            bloodgroupForDropDown.push(eachBloodGroupObject)
+            flag = 1
+          } else {
+            bloodgroupForDropDown.forEach((eachBloodGroup) => {
+              if (eachBloodGroup === eachRecord.blood_group) {
+                flag = 1
+              }
+            })
+          }
+          if (flag === 0) {
+            bloodgroupForDropDown.push(eachBloodGroupObject)
+          }
         })
-        console.log(tabledonarData)
       },
       data () {
         return {
@@ -113,7 +148,9 @@ window.bb.routes = [
               editable: true
             }
           ],
-          values: tabledonarData
+          values: tabledonarData,
+          options: citiesForAutoCompleter,
+          bloodGroupdata: bloodgroupForDropDown
         }
       }
     }
@@ -141,9 +178,6 @@ window.bb.routes = [
             end_date: ''
           }
         }
-      },
-      created () {
-        console.log('Hi From Created')
       },
       methods: {
         donarRegistration: function () {
@@ -188,12 +222,10 @@ let router = new VueRouter({
 new Vue({
   router: router,
   mounted () {
-    console.log('mounted')
     console.log(window)
     actions.getDonarData(function () {
       console.log('populate Donors')
     })
-    console.log('mounted')
     // vm.$router.replace({path: window.bb.basePath + '/home'})
   },
   data () {
